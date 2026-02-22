@@ -1,0 +1,46 @@
+{{ define "main" }}
+<div class="container content-page">
+  <h1>{{ .Title }}</h1>
+  <div class="page-content">
+    {{ .Content }}
+  </div>
+
+  {{ $active := where .Pages ".Params.status" "active" }}
+  {{ $alumni := where .Pages ".Params.status" "alumni" }}
+
+  {{ with $active }}
+  <h2>Membros Atuais</h2>
+  <div class="team-grid">
+    {{ range sort . "Params.weight" }}
+    <div class="team-card">
+      {{ with .Params.photo }}
+        <img src="{{ . | relURL }}" alt="{{ $.Title }}" class="team-photo">
+      {{ else }}
+        <div class="team-photo-placeholder">{{ substr .Title 0 1 }}</div>
+      {{ end }}
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <p class="team-role">{{ .Params.role }}</p>
+      {{ with .Params.lattes }}<a href="{{ . }}" target="_blank" rel="noopener" class="lattes-link">Currículo Lattes</a>{{ end }}
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{ with $alumni }}
+  <h2>Ex-membros</h2>
+  <div class="team-grid">
+    {{ range sort . "Params.weight" }}
+    <div class="team-card">
+      {{ with .Params.photo }}
+        <img src="{{ . | relURL }}" alt="{{ $.Title }}" class="team-photo">
+      {{ else }}
+        <div class="team-photo-placeholder">{{ substr .Title 0 1 }}</div>
+      {{ end }}
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <p class="team-role">{{ .Params.role }}</p>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
+{{ end }}

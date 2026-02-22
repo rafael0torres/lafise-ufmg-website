@@ -1,3 +1,60 @@
-baseURL: https://example.org/
-languageCode: en-us
-title: My New Hugo Site
+baseURL: https://rafael0torres.github.io/lafise-ufmg-website/
+languageCode: pt-BR
+defaultContentLanguage: pt-br
+title: LAFISE - Laboratório de Fisiologia do Exercício
+
+params:
+  description: "Laboratório de Fisiologia do Exercício - EEFFTO/UFMG"
+  author: "LAFISE UFMG"
+  email: "lafiseufmg@gmail.com"
+  phone: "(31) 3409-2328"
+  address: "Av. Presidente Antônio Carlos, 6627 - Pampulha, Belo Horizonte - MG"
+  building: "EEFFTO - Sala 2001"
+  facebook: "https://www.facebook.com/LAFISE/"
+  instagram: "https://www.instagram.com/lafise.ufmg"
+  meetingDay: "Terças-feiras"
+  meetingTime: "15:30 - 17:10"
+  meetingLocation: "EEFFTO-UFMG, Sala 2001"
+
+menu:
+  main:
+    - name: "Início"
+      url: "/"
+      weight: 1
+    - name: "O LAFISE"
+      url: "/o-lafise/"
+      weight: 2
+    - name: "Equipe"
+      url: "/equipe/"
+      weight: 3
+    - name: "Publicações"
+      url: "/publicacoes/"
+      weight: 4
+    - name: "Reuniões Científicas"
+      url: "/reunioes-cientificas/"
+      weight: 5
+    - name: "Disciplinas"
+      url: "/disciplinas/"
+      weight: 6
+    - name: "Links"
+      url: "/links/"
+      weight: 7
+    - name: "Contato"
+      url: "/contato/"
+      weight: 8
+
+taxonomies:
+  tag: tags
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+
+pagination:
+  pagerSize: 20

@@ -1,0 +1,33 @@
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="{{ "" | relURL }}" class="site-logo">
+        <span class="logo-text">LAFISE</span>
+        <span class="logo-subtitle">Laboratório de Fisiologia do Exercício</span>
+      </a>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" aria-label="Menu principal">
+        <ul>
+          {{ range site.Menus.main }}
+            <li{{ if $.IsMenuCurrent "main" . }} class="active"{{ end }}>
+              <a href="{{ .URL | relURL }}">{{ .Name }}</a>
+            </li>
+          {{ end }}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<script>
+  document.querySelector('.menu-toggle').addEventListener('click', function() {
+    const nav = document.querySelector('.site-nav');
+    const expanded = this.getAttribute('aria-expanded') === 'true';
+    this.setAttribute('aria-expanded', !expanded);
+    nav.classList.toggle('open');
+    this.classList.toggle('open');
+  });
+</script>

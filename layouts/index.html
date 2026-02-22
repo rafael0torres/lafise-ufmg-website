@@ -1,0 +1,114 @@
+{{ define "main" }}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>LAFISE</h1>
+      <p class="hero-subtitle">Laboratório de Fisiologia do Exercício</p>
+      <p class="hero-description">Investigando os efeitos do exercício físico sobre os sistemas fisiológicos na EEFFTO/UFMG</p>
+      <div class="hero-badges">
+        <span class="badge">EEFFTO</span>
+        <span class="badge">UFMG</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="home-section">
+  <div class="container">
+    <h2 class="section-title">Sobre o Laboratório</h2>
+    <p>O LAFISE é um laboratório de pesquisa vinculado à Escola de Educação Física, Fisioterapia e Terapia Ocupacional (EEFFTO) da Universidade Federal de Minas Gerais (UFMG). Nossas pesquisas investigam como o exercício físico afeta os sistemas fisiológicos, com ênfase em condições como diabetes tipo 2, inflamação sistêmica, comprometimento cognitivo e sarcopenia.</p>
+    <a href="{{ "o-lafise/" | relURL }}" class="btn">Saiba mais</a>
+  </div>
+</section>
+
+<!-- Research Areas -->
+<section class="home-section alt-bg">
+  <div class="container">
+    <h2 class="section-title">Áreas de Pesquisa</h2>
+    <div class="research-grid">
+      <div class="research-card">
+        <h3>Diabetes Tipo 2</h3>
+        <p>Complicações neurológicas e papel de miocinas e hepatocinas na comunicação músculo-cérebro</p>
+      </div>
+      <div class="research-card">
+        <h3>Termorregulação</h3>
+        <p>Aclimatação ao calor e respostas individuais ao estresse térmico durante o exercício</p>
+      </div>
+      <div class="research-card">
+        <h3>Função Cognitiva</h3>
+        <p>Efeitos do exercício sobre a função executiva e hemodinâmica cerebral</p>
+      </div>
+      <div class="research-card">
+        <h3>Sarcopenia</h3>
+        <p>Relações entre sarcopenia, disfunção cognitiva e estratégias de intervenção por exercício</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Meetings -->
+<section class="home-section">
+  <div class="container">
+    <h2 class="section-title">Reuniões Científicas</h2>
+    <div class="meeting-info">
+      <p><strong>{{ site.Params.meetingDay }}</strong> das <strong>{{ site.Params.meetingTime }}</strong></p>
+      <p>{{ site.Params.meetingLocation }}</p>
+      <p class="meeting-note">Aberto ao público — não é necessária inscrição prévia.</p>
+    </div>
+    {{ $meetings := where site.RegularPages "Section" "reunioes-cientificas" }}
+    {{ with $meetings }}
+    <div class="meetings-list">
+      {{ range first 5 (sort . "Date" "desc") }}
+      <div class="meeting-item">
+        <time datetime="{{ .Date }}">{{ dateFormat "02/01/2006" .Date }}</time>
+        <div>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          {{ with .Params.presenter }}<p class="meeting-presenter">{{ . }}{{ with $.Params.presenter_role }} — {{ . }}{{ end }}</p>{{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    <a href="{{ "reunioes-cientificas/" | relURL }}" class="btn">Ver todas as reuniões</a>
+    {{ end }}
+  </div>
+</section>
+
+<!-- Team Preview -->
+<section class="home-section alt-bg">
+  <div class="container">
+    <h2 class="section-title">Equipe</h2>
+    {{ $team := where (where site.RegularPages "Section" "equipe") ".Params.status" "active" }}
+    {{ with $team }}
+    <div class="team-grid">
+      {{ range sort . "Params.weight" }}
+      <div class="team-card">
+        {{ with .Params.photo }}
+          <img src="{{ . | relURL }}" alt="{{ $.Title }}" class="team-photo">
+        {{ else }}
+          <div class="team-photo-placeholder">{{ substr .Title 0 1 }}</div>
+        {{ end }}
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p class="team-role">{{ .Params.role }}</p>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+    <a href="{{ "equipe/" | relURL }}" class="btn">Ver equipe completa</a>
+  </div>
+</section>
+
+<!-- Contact CTA -->
+<section class="home-section contact-cta">
+  <div class="container">
+    <h2 class="section-title">Entre em Contato</h2>
+    <p>{{ site.Params.building }} — {{ site.Params.address }}</p>
+    <p>Email: <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a> | Telefone: {{ site.Params.phone }}</p>
+    <div class="social-links">
+      {{ with site.Params.facebook }}<a href="{{ . }}" target="_blank" rel="noopener" class="btn btn-outline">Facebook</a>{{ end }}
+      {{ with site.Params.instagram }}<a href="{{ . }}" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>{{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

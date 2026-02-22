@@ -1,0 +1,32 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>LAFISE</h3>
+        <p>Laboratório de Fisiologia do Exercício</p>
+        <p>{{ site.Params.building }}</p>
+        <p>{{ site.Params.address }}</p>
+      </div>
+      <div class="footer-col">
+        <h3>Contato</h3>
+        <p>Email: <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></p>
+        <p>Telefone: {{ site.Params.phone }}</p>
+      </div>
+      <div class="footer-col">
+        <h3>Redes Sociais</h3>
+        <div class="social-links">
+          {{ with site.Params.facebook }}<a href="{{ . }}" target="_blank" rel="noopener">Facebook</a>{{ end }}
+          {{ with site.Params.instagram }}<a href="{{ . }}" target="_blank" rel="noopener">Instagram</a>{{ end }}
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3>Institucional</h3>
+        <p>EEFFTO - Escola de Educação Física, Fisioterapia e Terapia Ocupacional</p>
+        <p>Universidade Federal de Minas Gerais</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {{ now.Year }} LAFISE - UFMG. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>

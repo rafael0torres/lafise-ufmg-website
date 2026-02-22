@@ -1,0 +1,46 @@
+{{ define "main" }}
+<div class="container content-page">
+  <h1>{{ .Title }}</h1>
+  <div class="page-content">
+    {{ .Content }}
+  </div>
+
+  {{ $sections := .Sections }}
+  {{ with $sections }}
+  <div class="pub-sections">
+    {{ range . }}
+    <div class="pub-section">
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      <p>{{ len .Pages }} {{ if eq (len .Pages) 1 }}item{{ else }}itens{{ end }}</p>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{ $pages := .RegularPages.ByDate.Reverse }}
+  {{ if $pages }}
+  <h2>Todas as publicações</h2>
+  {{ $years := slice }}
+  {{ range $pages }}
+    {{ $year := dateFormat "2006" .Date }}
+    {{ if not (in $years $year) }}
+      {{ $years = $years | append $year }}
+    {{ end }}
+  {{ end }}
+
+  {{ range $year := $years }}
+  <h3 class="year-heading">{{ $year }}</h3>
+  <ul class="pub-list">
+    {{ range where $pages "Date.Year" (int $year) }}
+    <li class="pub-item">
+      <span class="pub-title">{{ .Title }}</span>
+      {{ with .Params.authors }}<span class="pub-authors">{{ delimit . ", " }}</span>{{ end }}
+      {{ with .Params.journal }}<em class="pub-journal">{{ . }}</em>{{ end }}
+      {{ with .Params.doi }}<a href="https://doi.org/{{ . }}" target="_blank" rel="noopener" class="pub-doi">DOI</a>{{ end }}
+    </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+  {{ end }}
+</div>
+{{ end }}

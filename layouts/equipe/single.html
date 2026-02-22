@@ -1,0 +1,22 @@
+{{ define "main" }}
+<article class="container content-page">
+  <div class="member-profile">
+    <div class="member-header">
+      {{ with .Params.photo }}
+        <img src="{{ . | relURL }}" alt="{{ $.Title }}" class="member-photo-large">
+      {{ else }}
+        <div class="member-photo-placeholder-large">{{ substr .Title 0 1 }}</div>
+      {{ end }}
+      <div class="member-info">
+        <h1>{{ .Title }}</h1>
+        <p class="member-role">{{ .Params.role }}</p>
+        {{ with .Params.email }}<p>Email: <a href="mailto:{{ . }}">{{ . }}</a></p>{{ end }}
+        {{ with .Params.lattes }}<p><a href="{{ . }}" target="_blank" rel="noopener">Currículo Lattes</a></p>{{ end }}
+      </div>
+    </div>
+    <div class="page-content">
+      {{ .Content }}
+    </div>
+  </div>
+</article>
+{{ end }}

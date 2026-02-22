@@ -1,0 +1,38 @@
+{{ define "main" }}
+<div class="container content-page">
+  <h1>{{ .Title }}</h1>
+  <div class="page-content">
+    {{ .Content }}
+  </div>
+
+  <div class="meeting-info highlight-box">
+    <p><strong>{{ site.Params.meetingDay }}</strong> das <strong>{{ site.Params.meetingTime }}</strong></p>
+    <p>{{ site.Params.meetingLocation }}</p>
+    <p class="meeting-note">Aberto ao público — não é necessária inscrição prévia.</p>
+  </div>
+
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ $years := slice }}
+  {{ range $pages }}
+    {{ $year := dateFormat "2006" .Date }}
+    {{ if not (in $years $year) }}
+      {{ $years = $years | append $year }}
+    {{ end }}
+  {{ end }}
+
+  {{ range $year := $years }}
+  <h2 class="year-heading">{{ $year }}</h2>
+  <div class="meetings-list">
+    {{ range where $pages "Date.Year" (int $year) }}
+    <div class="meeting-item">
+      <time datetime="{{ .Date }}">{{ dateFormat "02/01" .Date }}</time>
+      <div>
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        {{ with .Params.presenter }}<p class="meeting-presenter">{{ . }}{{ with $.Params.presenter_role }} — {{ . }}{{ end }}</p>{{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
+{{ end }}
