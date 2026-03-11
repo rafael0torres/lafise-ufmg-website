@@ -3,8 +3,8 @@ title: "Prof. Dr. Samuel Penna Wanner"
 role: "Professor / Orientador"
 status: "active"
 weight: 3
-email: ""
-lattes: ""
+email: "samuelwanner@ufmg.br"
+lattes: "https://lattes.cnpq.br/9912121218443737"
 photo: "/img/equipe/samuel-penna-wanner.jpeg"
 ---
 
